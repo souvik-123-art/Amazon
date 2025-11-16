@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const cached = (global as any).mongoose || { conn: null, promise: null };
 
+
 export const connectDb = async (MONGODB_URI= process.env.MONGO_URI) => {
     if(cached.conn) return cached.conn;
     if(!MONGODB_URI) throw new Error('MONGODB_URI is missing');
