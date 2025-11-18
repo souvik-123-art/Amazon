@@ -1,4 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
 
 type CardItem = {
   title: string;
@@ -18,7 +20,34 @@ export const HomeCard = ({ cards }: { cards: CardItem[] }) => {
         <Card key={card.title} className="rounded-none flex flex-col">
           <CardContent className="p-4 flex-1">
             <h3 className="text-xl font-bold mb-4">{card.title}</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {card.items.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="flex flex-col"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    className="aspect-square object-scale-down max-w-full h-auto mx-auto"
+                    width={120}
+                    height={120}
+                  />
+                  <p className="text-center text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                    {item.name}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </CardContent>
+          {card.link && (
+            <CardFooter>
+              <Link className="mt-4 block" href={card.link.href}>
+                {card.link.text}
+              </Link>
+            </CardFooter>
+          )}
         </Card>
       ))}
     </div>
